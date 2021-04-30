@@ -14,7 +14,8 @@ This app is a bot for great work with Instagram
     virtualenv -p python3 venv\
     source venv/bin/activate\
     pip install -r requirements.txt\
-    python App.py
+    python App.py\
+    python App.py -D > Run With out headless
 
 
 * Send Direct to User List Sample:

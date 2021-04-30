@@ -16,18 +16,25 @@ print("""
 
 app = True
 main_logined = False
+option = webdriver.FirefoxOptions()
+option.headless=True
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == "-D":
+        option.headless=False
+
 
 def create_browser():
     global browser
     try:
-        browser = webdriver.Firefox()
+        browser = webdriver.Firefox(options=option)
     except serror.WebDriverException:
         print("\nWebdriver not in path !\nplease copy webdriver in /usr/bin")
         sys.exit()
 
 def create_driver():
     try:
-        browser = webdriver.Firefox()
+        browser = webdriver.Firefox(options=option)
         return browser
     except serror.WebDriverException:
         print("\nWebdriver not in path !\nplease copy webdriver in /usr/bin")
