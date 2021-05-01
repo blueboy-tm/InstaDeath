@@ -28,6 +28,6 @@ This app is a bot for great work with Instagram
         user3\
         ...
     * Message List: path/of/file/messages:\
-        Hi\
-        Hello\
+        Hi;\
+        Hello;\
         robot chooses one from [Hi, Hello]

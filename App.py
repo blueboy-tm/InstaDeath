@@ -307,8 +307,10 @@ def send_multi_direct():
             else:
                 break
     with open(message_list, "r") as file:
+        text = ''
         for i in file:
-            messages.append(i.strip())
+            text += i
+        messages += text.split(';')
     
     with open(users_list, "r") as file:
         for i in file:
