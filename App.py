@@ -303,7 +303,7 @@ def send_multi_direct():
             i = i.strip()
             if i:
                 l = i.split(':')
-                bots.append((l[0], l[1], create_driver()))
+                bots.append([l[0], l[1], create_driver()])
     for bot in bots:
         while True:
             if not login(bot[2], bot[0], bot[1]):
@@ -331,6 +331,8 @@ def send_multi_direct():
                     random.choice(messages),
                     users.pop(0)
                 )
+                with open(users_list+".unsend", "w") as f:
+                    f.write("\n".join(users))
             except IndexError:
                 for bot in bots:
                     bot[2].close()
