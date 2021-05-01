@@ -1,6 +1,7 @@
 #!./venv/bin/python
 from selenium import webdriver
 from selenium.common import exceptions as serror
+from selenium.webdriver.common.keys import Keys
 import sys
 from getpass import getpass
 import time
@@ -281,7 +282,12 @@ def send_direct(driver, message, user):
     driver.find_element_by_css_selector("div.-qQT3:nth-child(1) > div:nth-child(1) > div:nth-child(3) > button:nth-child(1) > span:nth-child(1)").click()
     driver.find_element_by_xpath("//div[contains(@class,'rIacr')]").click()
     time.sleep(1.7)
-    driver.find_element_by_xpath("//textarea[contains(@placeholder,'Message...')]").send_keys(message)
+    message = message.split("\n")
+    msgbox = driver.find_element_by_xpath("//textarea[contains(@placeholder,'Message...')]")
+    for i in message:
+        msgbox.send_keys(i)
+        webdriver.ActionChains(driver).key_down(Keys.SHIFT).send_keys(Keys.ENTER).perform()
+
     driver.find_element_by_xpath("//button[normalize-space()='Send']").click()
     time.sleep(0.5)
 
