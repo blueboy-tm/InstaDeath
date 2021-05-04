@@ -43,6 +43,12 @@ def create_driver():
 
 def login(driver, username, password):
     driver.get("https://www.instagram.com/accounts/login/")
+    time.sleep(1)
+    try:
+        driver.find_element_by_xpath('//*[text()="Accept All"]').click()
+    except Exception:
+        pass
+    time.sleep(2)
     while True:
         try:
             driver.find_element_by_xpath("//input[@name='username']").send_keys(username)
@@ -359,7 +365,7 @@ def multi_follow():
             i = i.strip()
             if i:
                 l = i.split(':')
-                bots.append((l[0], l[1], create_driver()))
+                bots.append([l[0], l[1], create_driver()])
     for bot in bots:
         while True:
             if not login(bot[2], bot[0], bot[1]):
