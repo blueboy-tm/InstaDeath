@@ -25,6 +25,11 @@ if len(sys.argv) > 1:
         option.headless=False
 
 
+
+def log(text):
+    with open('insta_death.log', 'a') as file:
+        file.write(time.strftime('%Y/%m/%d %H:%M:%S ') + text + '\n')
+
 def create_browser():
     global browser
     try:
@@ -296,6 +301,7 @@ def send_direct(driver, message, user):
 
     driver.find_element_by_xpath("//button[normalize-space()='Send']").click()
     time.sleep(0.5)
+    log(f'Direct send to {user}')
 
 def send_multi_direct():
     bots = []
@@ -352,6 +358,7 @@ def follow(driver, username):
     try:
         driver.find_element_by_xpath("//*[text()='Follow']").click()
         time(2)
+        log(f'User followed {username}')
     except serror.NoSuchElementException:
         pass
 
@@ -387,7 +394,8 @@ def multi_follow():
                     bot[2],
                     users.pop(0)
                 )
-                pass
+                with open(users_list+".notfollow", "w") as f:
+                    f.write("\n".join(users))
             except IndexError:
                 for bot in bots:
                     bot[2].close()
@@ -403,6 +411,7 @@ def unfollow(driver, username):
         time.sleep(1)
         driver.find_element_by_xpath("//button[normalize-space()='Unfollow']").click()
         time.sleep(1)
+        log('User Unfollowed')
     except serror.NoSuchElementException:
         pass
 
@@ -448,16 +457,16 @@ def multi_unfollow():
 
 def print_banner():
     print("")
-    print("1. Get Comenter with link")
-    print("2. Get Liker with link")
-    print("3. Get User Followers")
-    print("4. Get User Following")
-    print("5. Send Direct to User List")
-    print("6. Follow List User")
-    print("7. Unfollow List User")
+    print("1.  Get Comenter with link")
+    print("2.  Get Liker with link")
+    print("3.  Get User Followers")
+    print("4.  Get User Following")
+    print("5.  Send Direct to User List")
+    print("6.  Follow List User")
+    print("7.  Unfollow List User")
     print("98. Login Main User")
     print("99. Logout Main User")
-    print("0. Exit")
+    print("0.  Exit")
     print("")
 
 def item_manage(num):
